@@ -6,7 +6,6 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-
 /**
  * 自定义元数据对象处理器
  */
@@ -27,7 +26,6 @@ public class MyMetaObjeckHandler implements MetaObjectHandler {
         metaObject.setValue("createUser", BaseContext.getCurrentId());
         metaObject.setValue("updateUser", BaseContext.getCurrentId());
     }
-
     /**
      * 更新操作自动填充
      * @param metaObject

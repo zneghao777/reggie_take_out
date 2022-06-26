@@ -248,6 +248,7 @@
               // 起售停售---批量起售停售接口
               setmealStatusByStatus(params).then(res => {
                 if (res.code === 1) {
+
                   this.$message.success('套餐状态已经更改成功！')
                   this.handleQuery()
                 } else {

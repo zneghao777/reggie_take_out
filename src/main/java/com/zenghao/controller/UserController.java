@@ -1,6 +1,5 @@
 package com.zenghao.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zenghao.Utils.SMSUtils;
 import com.zenghao.Utils.SMSUtils1;
@@ -46,7 +45,7 @@ public class UserController {
             String code = ValidateCodeUtils.generateValidateCode(4).toString();
             log.info("code={}",code);
             //调用阿里云短信服务API完成发送短信
-            //SMSUtils1.sendMessage("阿里云短信测试","SMS_154950909", phone, code);
+            SMSUtils1.sendMessage("阿里云短信测试","SMS_154950909", phone, code);
             //需要将生成的验证码保存到Session中
             session.setAttribute(phone,code);
             //将生成的验证码缓存到redis中,并设置有效期为5分钟

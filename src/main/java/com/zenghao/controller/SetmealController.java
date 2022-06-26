@@ -108,17 +108,18 @@ public class SetmealController {
         return R.success("套餐数据删除成功!!");
     }
 
-    /*
-     * 停售操作
-     */
+   //  * 停售操作
+    @PostMapping("/status/{setmeal.getStatus()}")
+    public R<String> Status(@RequestParam List<Long> ids){
 
-    /*@PostMapping("/status/{setmeal.getStatus()}")
-    public R<String> Status(@PathVariable Setmeal setmeal,@RequestParam List<Long> ids){
-
-        setmealService.updateStatus(setmeal,ids);
-
+        for (Long id : ids) {
+            Setmeal setmeal1 = setmealService.getById(id);
+            setmeal1.setStatus(1);
+            setmealService.updateById(setmeal1);
+        }
         return R.success("状态修改成功");
-    }*/
+    }
+
 
 
     /**
@@ -136,12 +137,14 @@ public class SetmealController {
         query.orderByDesc(Setmeal::getUpdateTime);
 
         List<Setmeal> list = setmealService.list(query);
-
         return R.success(list);
     }
 
-
-
+    @GetMapping("/{id}")
+    public R<SetmealDto> querySetmealById(@PathVariable Long id){
+        SetmealDto setmealDto = setmealService.getByIdwithDish(id);
+        return R.success(setmealDto);
+    }
 
 
 

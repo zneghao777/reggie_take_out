@@ -53,6 +53,8 @@ public class CategoryController {
 
         //categoryService.removeById(id);
 
+
+        
         categoryService.remove(id);
         return R.success("分类信息删除成功");
     }

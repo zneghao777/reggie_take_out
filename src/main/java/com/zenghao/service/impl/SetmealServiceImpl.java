@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zenghao.common.CustomException;
 import com.zenghao.dto.SetmealDto;
+import com.zenghao.entity.Dish;
 import com.zenghao.entity.Setmeal;
 import com.zenghao.entity.SetmealDish;
 import com.zenghao.mapper.SetmealMapper;
 import com.zenghao.service.SetmealDishService;
 import com.zenghao.service.SetmealService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,11 +67,25 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
         setmealDishService.remove(lambdaQueryWrapper);
     }
 
+    @Override
+    public SetmealDto getByIdwithDish(Long id) {
+        //根据套餐id查询套餐基本信息
+        Setmeal setmeal = this.getById(id);
+        //new 一个SetmealDto对象
+        SetmealDto setmealDto = new SetmealDto();
+        BeanUtils.copyProperties(setmeal,setmealDto);
+        //查询当前套餐对应的菜品信息
+        LambdaQueryWrapper<SetmealDish> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SetmealDish::getSetmealId,setmeal.getId());
+        List<SetmealDish> setmealDishList = setmealDishService.list(queryWrapper);
+        setmealDto.setSetmealDishes(setmealDishList);
+        return setmealDto;
+    }
+
    /* @Override
     public void updateStatus(Setmeal setmeal, List<Long> ids) {
             LambdaQueryWrapper<Setmeal> queryWrapper = new LambdaQueryWrapper<>();
-            queryWrapper.in(Setmeal::getId,ids);
+            queryWrapper.in(Setmeal::getId,2);
             this.update(setmeal,queryWrapper);
-
     }*/
 }

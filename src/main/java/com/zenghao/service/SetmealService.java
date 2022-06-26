@@ -2,7 +2,6 @@ package com.zenghao.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zenghao.dto.SetmealDto;
-import com.zenghao.entity.Dish;
 import com.zenghao.entity.Setmeal;
 
 import java.util.List;
@@ -18,5 +17,7 @@ public interface SetmealService extends IService<Setmeal> {
 
     void removeWithDish(List<Long> ids);
 
-   /* void updateStatus(Setmeal setmeal, List<Long> ids);*/
+    SetmealDto getByIdwithDish(Long id);
+
+    /* void updateStatus(Setmeal setmeal, List<Long> ids);*/
 }

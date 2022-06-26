@@ -24,7 +24,7 @@ public class OrdersController {
         return R.success("下单成功");
     }
 
-    @GetMapping("/userPage")
+    @GetMapping("/page")
     public R<Page> page(int page , int pageSize) {
 
         Page<Orders> pageInfo =  new Page<>(page,pageSize);
@@ -37,4 +37,12 @@ public class OrdersController {
 
         return R.success(pageInfo);
     }
+    @PutMapping
+    public R<String> ToSend(@RequestBody Orders orders){
+        Orders orders1 = ordersService.getById(orders);
+        orders1.setStatus(3);
+        ordersService.updateById(orders1);
+        return R.success("派送成功！！");
+    }
+
 }
